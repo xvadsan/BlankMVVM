@@ -1,4 +1,4 @@
-package com.xvadsan.blankmvvm
+package com.xvadsan.blankmvvm.ui.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
