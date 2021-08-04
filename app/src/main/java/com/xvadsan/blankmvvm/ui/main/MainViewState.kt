@@ -1,15 +1,17 @@
 package com.xvadsan.blankmvvm.ui.main
 
+import com.xvadsan.blankmvvm.data.database.DbModel
+
 sealed class MainEvent {
     object Loading : MainEvent()
     data class Error(val exception: Exception) : MainEvent()
-    object Success : MainEvent()
+    data class Success(val dbModel: DbModel) : MainEvent()
 }
 
 data class MainState(
     val loading: Boolean = false,
     val exception: Exception? = null,
-    val success: Boolean = false,
+    val success: DbModel? = null,
     val event: MainEvent? = null
 ) {
     fun applyEvent(event: MainEvent) = when (event) {
@@ -23,7 +25,7 @@ data class MainState(
             event = event
         )
         is MainEvent.Success -> copy(
-            success = true,
+            success = event.dbModel,
             event = event
         )
     }

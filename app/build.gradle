@@ -1,8 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -50,6 +50,12 @@ android {
     }
 }
 
+kapt {
+    arguments {
+        arg("dagger.hilt.shareTestComponents", "true")
+    }
+}
+
 dependencies {
     implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
@@ -67,27 +73,34 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.7'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.3.1"
+    implementation "androidx.fragment:fragment-ktx:1.3.6"
 
     // Google navigation component
     def nav = '2.3.5'
     implementation "androidx.navigation:navigation-fragment-ktx:$nav"
     implementation "androidx.navigation:navigation-ui-ktx:$nav"
 
-    // Dagger-2
-    def dagger = "2.30.1"
-    implementation "com.google.dagger:dagger:$dagger"
-    annotationProcessor "com.google.dagger:dagger-compiler:$dagger"
+    // Hilt
+    def hiltVersion = '2.36'
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
 
     // ThreeTen
     def threeTenABPVer = "1.3.0"
     implementation "com.jakewharton.threetenabp:threetenabp:$threeTenABPVer"
 
     // Glide
-    def glide = "4.11.0"
+    def glide = "4.12.0"
     implementation "com.github.bumptech.glide:glide:$glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide"
 
-    // ViewBindingPropertyDelegate
-    def binding = "1.4.1"
-    implementation "com.kirich1409.viewbindingpropertydelegate:vbpd-noreflection:$binding"
+    // Room
+    def room = '2.3.0'
+    implementation "androidx.room:room-runtime:$room"
+    implementation "androidx.room:room-rxjava2:$room"
+    implementation "androidx.room:room-runtime:$room"
+    kapt "androidx.room:room-compiler:$room"
+    implementation "androidx.room:room-ktx:$room"
 }

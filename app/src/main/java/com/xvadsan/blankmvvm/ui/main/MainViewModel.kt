@@ -1,13 +1,20 @@
 package com.xvadsan.blankmvvm.ui.main
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.xvadsan.blankmvvm.domain.DataRepository
+import com.xvadsan.blankmvvm.data.database.DbModel
 import com.xvadsan.blankmvvm.ui.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MainViewModel constructor(
-    /* no-op */
+@HiltViewModel
+class MainViewModel @Inject constructor(
+    private val repository: DataRepository
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(MainState())
@@ -23,7 +30,19 @@ class MainViewModel constructor(
     }
 
     private fun loadData() {
-        /* no-op */
+        mainJob?.let { if (it.isActive) return }
+        mainJob = prefillData()
+    }
+
+    private fun prefillData() = viewModelScope.launch {
+        repository.insertValue(DbModel(1, "Rukallo"))
+
+        repository.getValue(1)
+            .flowOn(Dispatchers.IO)
+            .onEach {
+                emitState(MainEvent.Success(it))
+            }
+            .launchIn(viewModelScope)
     }
 
     private fun emitState(state: MainEvent) {
