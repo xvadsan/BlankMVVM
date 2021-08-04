@@ -8,6 +8,3 @@
 - Motion layout (2 variants)
 - Google navigation component
 - Room
-
-
-![X Text](https://github.com/xvadsan/BlankMVP/blob/master/anim_gif.gif)
