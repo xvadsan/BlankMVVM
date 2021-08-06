@@ -5,6 +5,5 @@
 - DaggerHilt
 - Coroutines-Flow
 - Clean architecture 
-- Motion layout (2 variants)
 - Google navigation component
 - Room
