@@ -78,14 +78,13 @@ dependencies {
     implementation "androidx.fragment:fragment-ktx:1.3.6"
 
     // Google navigation component
-    def nav = '2.3.5'
-    implementation "androidx.navigation:navigation-fragment-ktx:$nav"
-    implementation "androidx.navigation:navigation-ui-ktx:$nav"
+    implementation "androidx.navigation:navigation-compose:2.4.0-alpha06"
 
     // Hilt
     def hiltVersion = '2.36'
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0-alpha03"
 
     // ThreeTen
     def threeTenABPVer = "1.3.0"
